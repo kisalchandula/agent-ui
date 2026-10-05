@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react"
 
+import Header from "./components/Header"
+import BuildingView from "./components/BuildingView"
+import AgentPanel from "./components/AgentPannel"
+import CommandPanel from "./components/CommandPanel"
+import ActivityPanel from "./components/ActivityPanel"
+import Footer from "./components/Footer"
+
 type Location = {
   name: string
   type: string
@@ -198,160 +205,35 @@ function App() {
 
   return (
     <div className="app">
-      <header className="header">
-        <div>
-          <h1>BIM WORLD AGENT</h1>
-          <span>Spatial reasoning environment</span>
-        </div>
-
-        <div className="status">
-          <span className="status-dot" />
-          Connected
-        </div>
-      </header>
+      <Header />
 
       <main className="workspace">
-        <section className="building-view">
-          <div className="view-header">
-            <span>BUILDING VIEW</span>
-            <span>Floor {currentLocation?.floor ?? 0}</span>
-          </div>
-
-          <div className="building">
-            {locations.map((location) => (
-              <div
-                key={location.name}
-                className={`location ${location.type} ${location.name
-                  .toLowerCase()
-                  .replace(" ", "-")}`}
-              >
-                {location.name.toUpperCase()}
-
-                {agent.location === location.name && (
-                  <span className="agent">●</span>
-                )}
-              </div>
-            ))}
-
-            {connections.map((connection) => (
-              <div
-                key={`${connection.from}-${connection.to}`}
-                className={`door door-${connection.from
-                  .toLowerCase()
-                  .replace(" ", "-")}`}
-              />
-            ))}
-
-            {route.slice(0, -1).map((location, index) => {
-              const nextLocation = route[index + 1]
-
-              const segment = `${location}-${nextLocation}`
-
-              return (
-                <div
-                  key={segment}
-                  className={`route route-${segment
-                    .toLowerCase()
-                    .replaceAll(" ", "-")}`}
-                />
-              )
-            })}
-          </div>
-        </section>
+        <BuildingView
+          locations={locations}
+          connections={connections}
+          route={route}
+          agent={agent}
+        />
 
         <aside className="sidebar">
-          <section className="panel">
-            <div className="panel-title">AGENT</div>
+          <AgentPanel
+            agent={agent}
+            locations={locations}
+          />
 
-            <div className="agent-name">
-              <div className="avatar">A</div>
+          <CommandPanel
+            command={command}
+            onCommandChange={setCommand}
+            onSubmit={handleCommand}
+          />
 
-              <div>
-                <strong>Spatial Agent</strong>
-                <span>Autonomous agent</span>
-              </div>
-            </div>
-
-            <div className="info">
-              <div>
-                <span>Location</span>
-                <strong>{agent.location}</strong>
-              </div>
-
-              <div>
-                <span>Type</span>
-                <strong>
-                  {currentLocation?.type ?? "Unknown"}
-                </strong>
-              </div>
-
-              <div>
-                <span>Floor</span>
-                <strong>{currentLocation?.floor ?? 0}</strong>
-              </div>
-
-              <div>
-                <span>Status</span>
-                <strong>{agent.status}</strong>
-              </div>
-            </div>
-          </section>
-
-          <section className="panel">
-            <div className="panel-title">COMMAND</div>
-
-            <div className="command">
-              <input
-                type="text"
-                placeholder="Ask the agent..."
-                value={command}
-                onChange={(event) =>
-                  setCommand(event.target.value)
-                }
-                onKeyDown={(event) => {
-                  if (event.key === "Enter") {
-                    handleCommand()
-                  }
-                }}
-              />
-
-              <button onClick={handleCommand}>→</button>
-            </div>
-          </section>
-
-          <section className="panel activity-panel">
-            <div className="panel-title">ACTIVITY</div>
-
-            <div className="activity">
-              <div>
-                <span className="activity-dot complete" />
-
-                <div>
-                  <strong>Agent initialized</strong>
-                  <span>{agent.location}</span>
-                </div>
-              </div>
-
-              <div>
-                <span className="activity-dot" />
-
-                <div>
-                  <strong>Waiting for command</strong>
-                  <span>Ready</span>
-                </div>
-              </div>
-            </div>
-          </section>
+          <ActivityPanel
+            agentLocation={agent.location}
+          />
         </aside>
       </main>
 
-      <footer>
-        Spatial Agent
-        <span>•</span>
-        Building Model
-        <span>•</span>
-        Floor {currentLocation?.floor ?? 0}
-      </footer>
+      <Footer floor={currentLocation?.floor ?? 0} />
     </div>
   )
 }
