@@ -1,0 +1,415 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0f14;
+  color: #e8edf3;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header */
+
+.header {
+  height: 72px;
+  flex-shrink: 0;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #202832;
+  background: #0e1319;
+}
+
+.header h1 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  letter-spacing: 1.5px;
+}
+
+.header span {
+  color: #7f8b98;
+  font-size: 12px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #aab5c0;
+  font-size: 12px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+}
+
+/* Main workspace */
+
+.workspace {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Building view */
+
+.building-view {
+  position: relative;
+  min-width: 0;
+  background: #10161d;
+  border-right: 1px solid #202832;
+  overflow: hidden;
+}
+
+.view-header {
+  height: 48px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #202832;
+  color: #7f8b98;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.building {
+  position: relative;
+  width: 650px;
+  height: 550px;
+  margin: 40px auto;
+}
+
+
+/* Agent */
+
+.agent {
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  color: #5eead4;
+  font-size: 22px;
+  text-shadow: 0 0 12px rgba(94, 234, 212, 0.8);
+}
+
+/* Doors */
+
+.door {
+  position: absolute;
+  z-index: 3;
+  background: #5eead4;
+}
+
+.door-a {
+  width: 28px;
+  height: 4px;
+  top: 98px;
+  left: 311px;
+}
+
+.door-b {
+  width: 4px;
+  height: 28px;
+  top: 201px;
+  left: 188px;
+}
+
+.door-c {
+  width: 4px;
+  height: 28px;
+  top: 201px;
+  right: 188px;
+}
+
+.door-d {
+  width: 28px;
+  height: 4px;
+  top: 328px;
+  right: 101px;
+}
+
+/* Route */
+
+.route {
+  position: absolute;
+  z-index: 2;
+  background: #5eead4;
+  opacity: 0.7;
+}
+
+/* Sidebar */
+
+.sidebar {
+  min-height: 0;
+  background: #0e1319;
+  overflow: hidden;
+}
+
+.panel {
+  padding: 24px;
+  border-bottom: 1px solid #202832;
+}
+
+.panel-title {
+  margin-bottom: 20px;
+  color: #687582;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
+
+/* Agent information */
+
+.agent-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #33404c;
+  border-radius: 8px;
+  background: #172029;
+  color: #5eead4;
+  font-size: 13px;
+}
+
+.agent-name strong,
+.agent-name span {
+  display: block;
+}
+
+.agent-name strong {
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.agent-name span {
+  color: #6f7b87;
+  font-size: 11px;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.info span,
+.info strong {
+  display: block;
+}
+
+.info span {
+  margin-bottom: 5px;
+  color: #65717d;
+  font-size: 10px;
+}
+
+.info strong {
+  color: #c4ccd5;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Command */
+
+.command {
+  display: flex;
+  border: 1px solid #2a3540;
+  background: #111820;
+}
+
+.command input {
+  min-width: 0;
+  flex: 1;
+  padding: 12px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #dbe2e8;
+  font-size: 12px;
+}
+
+.command input::placeholder {
+  color: #56616c;
+}
+
+.command button {
+  width: 42px;
+  border: 0;
+  border-left: 1px solid #2a3540;
+  background: transparent;
+  color: #5eead4;
+  cursor: pointer;
+}
+
+/* Activity */
+
+.activity {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.activity > div {
+  display: flex;
+  gap: 12px;
+}
+
+.activity-dot {
+  width: 7px;
+  height: 7px;
+  margin-top: 4px;
+  border: 1px solid #53606c;
+  border-radius: 50%;
+}
+
+.activity-dot.complete {
+  border-color: #5eead4;
+  background: #5eead4;
+}
+
+.activity strong,
+.activity span {
+  display: block;
+}
+
+.activity strong {
+  margin-bottom: 4px;
+  color: #b9c3cc;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.activity span {
+  color: #5e6a76;
+  font-size: 10px;
+}
+
+/* Footer */
+
+footer {
+  height: 34px;
+  flex-shrink: 0;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid #202832;
+  background: #0b0f14;
+  color: #596572;
+  font-size: 10px;
+}
+
+
+/* Data-driven locations */
+
+.location {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #3b4652;
+  background: #161e27;
+  color: #aeb9c5;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.location.office {
+  width: 150px;
+  height: 100px;
+}
+
+.location.corridor {
+  width: 190px;
+  height: 230px;
+  background: #131a22;
+}
+
+.location.room-a {
+  width: 190px;
+  height: 100px;
+  top: 0;
+  left: 230px;
+}
+
+.location.corridor {
+  top: 100px;
+  left: 230px;
+}
+
+.location.room-b {
+  top: 165px;
+  left: 40px;
+}
+
+.location.room-c {
+  top: 165px;
+  right: 40px;
+}
+
+.location.room-d {
+  top: 330px;
+  right: 40px;
+}
+
+
+/* Dynamic route segments */
+
+.route-room-d-room-c,
+.route-room-c-room-d {
+  width: 3px;
+  height: 65px;
+  top: 265px;
+  right: 113px;
+}
+
+.route-room-c-corridor,
+.route-corridor-room-c {
+  width: 117px;
+  height: 3px;
+  top: 265px;
+  left: 267px;
+}
+
+.route-corridor-room-a,
+.route-room-a-corridor {
+  width: 3px;
+  height: 100px;
+  top: 0;
+  left: 324px;
+}
